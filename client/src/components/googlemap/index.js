@@ -31,7 +31,7 @@
 
 // export default GoogleApiWrapper({
 //     // apiKey: `${process.env.GOOGLEAPI}`
-//     apiKey: 'AIzaSyChh-ukRrOzr0fiPZrsIJkpHCWj6FZrQK8'
+//     
 // })(MapContainer)
 
 import React, { Component } from 'react';
