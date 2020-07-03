@@ -4,6 +4,9 @@ import Map from './components/googlemap'
 // import GoogleApiWrapper from './components/googlemap'
 
 class App extends Component {
+
+  
+
   render() {
     return (
       <div className="App">
