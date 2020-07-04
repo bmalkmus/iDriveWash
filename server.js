@@ -16,7 +16,9 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes);
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/idrivewash");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/idrivewash", {useNewUrlParser: true,  useUnifiedTopology: true })
+.then(() => console.log('MongoDB Connected'))
+.catch((err) => console.log(err));
 
 
 // Send every request to the React app

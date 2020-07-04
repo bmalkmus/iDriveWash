@@ -5,3 +5,5 @@ const WashController = require ("../../controllers/WashControl");
 router.route("/")
     .get(WashController.FindAllA)
     .post(WashController.downloadAlerts);
+
+module.exports = router;

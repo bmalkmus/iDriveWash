@@ -1,16 +1,18 @@
 import axios from 'axios';
 
 require('dotenv').config();
+const key = 'SECRET';
+console.log({key});
 
 export default {
     downCameras: function () {
-        return axios.get (`http://www.wsdot.com/Traffic/api/HighwayCameras/HighwayCamerasREST.svc/GetCamerasAsJson?AccessCode=${process.env.REACT_APP_WASHAPI}`)
+        return axios.get (`https://cors-anywhere.herokuapp.com/http://www.wsdot.com/Traffic/api/HighwayCameras/HighwayCamerasREST.svc/GetCamerasAsJson?AccessCode=${key}`)
     },
     downWeath : function () {
-        return axios.get(`http://www.wsdot.wa.gov/Traffic/api/WeatherInformation/WeatherInformationREST.svc/GetCurrentWeatherInformationAsJson?AccessCode=${process.env.REACT_APP_WASHAPI}`)
+        return axios.get(`https://cors-anywhere.herokuapp.com/http://www.wsdot.wa.gov/Traffic/api/WeatherInformation/WeatherInformationREST.svc/GetCurrentWeatherInformationAsJson?AccessCode=${key}`)
     },
     downAlerts: function () {
-        return axios.get(`http://www.wsdot.wa.gov/Traffic/api/HighwayAlerts/HighwayAlertsREST.svc/GetAlertsAsJson?AccessCode=${process.env.REACT_APP_WASHAPI}`)
+        return axios.get(`https://cors-anywhere.herokuapp.com/http://www.wsdot.wa.gov/Traffic/api/HighwayAlerts/HighwayAlertsREST.svc/GetAlertsAsJson?AccessCode=${key}`)
     },
     postCamera: function (data) {
         return axios.post("api/cameras", data)

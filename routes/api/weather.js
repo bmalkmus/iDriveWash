@@ -5,3 +5,5 @@ const WashController = require ("../../controllers/WashControl");
 router.route("/")
     .get(WashController.findAllW)
     .post(WashController.downloadWeather);
+
+module.exports = router;

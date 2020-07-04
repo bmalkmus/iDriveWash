@@ -5,19 +5,19 @@ module.exports = {
         db.Weather
         .create(req.body)
         .then(results => res.json(results))
-        .catch(err => status(422).json(err));
+        .catch(err => res.status(422).json(err));
     },
     downloadCameras:function (req, res) {
-        db.Cameras
+        db.Camera
         .create(req.body)
         .then(results => res.json(results))
-        .catch(err => status(422).json(err));
+        .catch(err => res.status(422).json(err));
     },
     downloadAlerts:function (req, res) {
-        db.Alerts
+        db.Alert
         .create(req.body)
         .then(results => res.json(results))
-        .catch(err => status(422).json(err));
+        .catch(err => res.status(422).json(err));
     },
     findAllW:function (req, res) {
         db.Weather
@@ -27,14 +27,14 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     findAllC:function (req, res) {
-        db.Cameras
+        db.Camera
             .find(req.query)
             .sort({ date: -1})
             .then (results => res.json(results))
             .catch(err => res.status(422).json(err));
     },
     FindAllA:function (req, res) {
-        db.Alerts
+        db.Alert
             .find(req.query)
             .sort({ date: -1})
             .then (results => res.json(results))

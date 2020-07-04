@@ -1,5 +1,5 @@
 module.exports = {
-    Cameras: require ('./cameras'),
-    Alerts: require ('./alerts'),
+    Camera: require ('./cameras'),
+    Alert: require ('./alerts'),
     Weather: require ('./weather')
 }

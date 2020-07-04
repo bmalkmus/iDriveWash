@@ -8,4 +8,9 @@ const cameraSchema = new Schema ({
     Image: {type: String},
     title: {type: String},
     description: {type: String}
-})
+});
+
+const Camera = mongoose.model("camera", cameraSchema);
+
+module.exports = Camera;
+

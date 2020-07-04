@@ -9,4 +9,8 @@ const weatherSchema = new Schema ({
     Temp : {type: Number, require: true},
     WindDirect : {type: String},
     WindSpeed: {type: Number}
-})
+});
+
+const Weather = mongoose.model("weather", weatherSchema);
+
+module.exports = Weather;

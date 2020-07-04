@@ -15,4 +15,8 @@ const alertsSchema = new Schema ({
     },
     Priority: {type: String},
     EventCategory: {type: String}
-})
+});
+
+const Alert = mongoose.model("Alert", alertsSchema);
+
+module.exports = Alert;
