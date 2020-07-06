@@ -4,6 +4,7 @@ const WashController = require ("../../controllers/WashControl");
 
 router.route("/")
     .get(WashController.findAllC)
-    .post(WashController.downloadCameras);
+    .post(WashController.downloadCameras)
+    .delete(WashController.clearCameras);
 
 module.exports = router;

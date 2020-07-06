@@ -36,7 +36,8 @@
 
 import React, { Component } from 'react';
 // import { render } from 'react-dom';
-import API from '../utils/API'
+import API from '../utils/API';
+import "./style.css"
 
 require('dotenv').config();
 
@@ -44,6 +45,14 @@ class Map extends Component {
     constructor(props) {
         super(props);
         this.onScriptLoad = this.onScriptLoad.bind(this)
+    }
+
+    clearDB() {
+        API.clearDB()
+        .then (res => {
+            console.log("DataBases Cleared!")
+        })
+        .catch((err) => console.log(err));
     }
 
     apiWeather() {
@@ -122,6 +131,7 @@ class Map extends Component {
     }
 
     onScriptLoad() {
+        this.clearDB();
         this.apiAlerts();
         this.apiCameras();
         this.apiWeather();
@@ -152,7 +162,7 @@ class Map extends Component {
 
     render() {
         return (
-            <div  id={this.props.id} />
+            <div  id={this.props.id} className = "mapContainer"/>
         );
     }
 }
