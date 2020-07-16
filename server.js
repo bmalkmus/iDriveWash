@@ -2,9 +2,20 @@ const express = require("express");
 // const path = require("path");
 const mongoose = require ('mongoose');
 const routes = require("./routes")
-
+const cors = require('cors');
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+const corsOptions = {
+  origin: ['http://localhost'],
+  allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
+  credentials: true,
+  enablePreflight: true
+}
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions))
+
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -13,6 +24,7 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
 
 app.use(routes);
 

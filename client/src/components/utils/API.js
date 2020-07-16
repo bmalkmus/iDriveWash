@@ -5,13 +5,14 @@ const key = 'SECRET';
 console.log({key});
 
 export default {
-    clearDB: function () {
-        return axios.all([
-            axios.delete('api/cameras'),
-            axios.delete('api/alerts'),
-            axios.delete('api/weather'),
-        
-        ])
+    clearCam: function () {
+        return axios.delete('api/cameras')   
+    },
+    clearAlerts: function () {
+        return axios.delete('api/alerts') 
+    },
+    clearWeather: function () {
+        return axios.delete('api/weather') 
     },
     downCameras: function () {
         return axios.get (`https://cors-anywhere.herokuapp.com/http://www.wsdot.com/Traffic/api/HighwayCameras/HighwayCamerasREST.svc/GetCamerasAsJson?AccessCode=${key}`)

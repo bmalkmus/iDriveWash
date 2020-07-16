@@ -1,61 +1,33 @@
-// import React from 'react';
-// import {Map, GoogleApiWrapper} from 'google-maps-react'
-
-// require('dotenv').config();
-
-
-// const mapStyles = {
-//     width: "100%",
-//     height: "100%"
-// };
-
-// export class MapContainer extends Component {
-//     render() {
-//         var transitLayer = new google.maps.TransitLayer();
-//         transitLayer.setMap(map);
-//     return (
-//         <Map
-//         google = {this.props.google}
-//         style = {mapStyles}
-//         initialCenter ={{
-//             lat:'47.411293',
-//             lng: '-120.55627'
-//         }}
-//         zoom = {8}
-//         />
-//     );
-//     }
-// }
-
-
-
-// export default GoogleApiWrapper({
-//     // apiKey: `${process.env.GOOGLEAPI}`
-//     
-// })(MapContainer)
-
-import React, { Component } from 'react';
-// import { render } from 'react-dom';
+import React, { useEffect, useRef } from 'react';
 import API from '../utils/API';
 import "./style.css"
 
 require('dotenv').config();
 
-class Map extends Component {
-    constructor(props) {
-        super(props);
-        this.onScriptLoad = this.onScriptLoad.bind(this)
-    }
 
-    clearDB() {
-        API.clearDB()
+
+     function clearDB() {
+        API.clearCam()
         .then (res => {
-            console.log("DataBases Cleared!")
+            console.log("Cam Cleared!");
+            this.apiCameras();
+        })
+        .catch((err) => console.log(err));
+        API.clearAlerts()
+        .then (res => {
+            console.log("Alerts Cleared!");
+            this.apiAlerts();
+        })
+        .catch((err) => console.log(err));
+        API.clearWeather()
+        .then (res => {
+            console.log("Weather Cleared!");
+            this.apiWeather();
         })
         .catch((err) => console.log(err));
     }
 
-    apiWeather() {
+    function apiWeather() {
         API.downWeath()
         .then (res => {
             for (let i=0; i<res.data.length; i++){
@@ -77,30 +49,49 @@ class Map extends Component {
         })
     }
 
-    apiCameras() {
+    function apiCameras() {
         API.downCameras()
         .then (res => {
-            for (let i=0; i<res.data.length; i++){
+            console.log(res.data)
+            const mapId = document.getElementById(this.props.id);
+            const map = new window.google.maps.Map(mapId, this.props.options);
+            for (let i = 0; i < res.data.length; i++){
+                while (!res.data[i].CameraOwner === "WSDOT Aviation"){
+                    console.log("not airport")
+                let LatLng = {
+                    lat: res.data[i].CameraLocation.Latitude,
+                    lng: res.data[i].CameraLocation.Longitude
+                };
 
-                API.postCamera({
-                    CameraID:res.data[i].CameraID,
-                    Latitude:res.data[i].CameraLocation.Latitude,
-                    Longitude:res.data[i].CameraLocation.Longitude,
-                    Image:res.data[i].ImageURL,
-                    title:res.data[i].Title,
-                    description:res.data[i].Description
-                })
-                .then((res) => {
-                    console.log("camera posts " +res)
-                })
-                .catch((err) => console.log(err));
+                const marker = new window.google.maps.Marker({
+                    position: LatLng,
+                    title: res.data[i].Description
+                });
+
+                marker.setMap(map);
+            }
+            //     API.postCamera({
+            //         CameraID:res.data[i].CameraID,
+            //         Latitude:res.data[i].CameraLocation.Latitude,
+            //         Longitude:res.data[i].CameraLocation.Longitude,
+            //         Image:res.data[i].ImageURL,
+            //         title:res.data[i].Title,
+            //         description:res.data[i].Description
+            //     })
+            //     .then((res) => {
+            //         console.log("Camera Loaded")
+            //     })
+            //     .catch((err) => console.log(err));
+            
+            
 
                     
+               
             }
         })
     }
 
-    apiAlerts() {
+    function apiAlerts() {
         API.downAlerts()
         .then (res => {
             for (let i=0; i<res.data.length; i++){
@@ -130,41 +121,35 @@ class Map extends Component {
         })
     }
 
-    onScriptLoad() {
-        this.clearDB();
-        this.apiAlerts();
-        this.apiCameras();
-        this.apiWeather();
-        const mapId = document.getElementById(this.props.id);
-        const map = new window.google.maps.Map(mapId, this.props.options);
-        var trafficLayer = new window.google.maps.TrafficLayer();
-            trafficLayer.setMap(map);
-
-    }
-
-    componentDidMount() {
-
-        if (window.google) {
-            this.onScriptLoad();
-            return;
+    
+    function Map(){
+        const googleMapRef = useRef(null);
+        let googleMap = null;
+        
+        function Traffic() {
+            var trafficLayer = new window.google.maps.TrafficLayer()
+            trafficLayer.setMap(googleMap)
         }
+        useEffect(() => {
+            googleMap = initGoogleMap();
+            Traffic();
+            // createMarker();
+        }, []);
 
-        var s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.src = `https://maps.google.com/maps/api/js?key=SECRET`;
-        var x = document.getElementsByTagName('script')[0];
-        x.parentNode.insertBefore(s, x);
+        function initGoogleMap ()  {
+            return new window.google.maps.Map(googleMapRef.current, {
+              center: { lat: 47.411293, lng: -120.55627 },
+              zoom: 8
+            });
+          }
 
-        s.addEventListener('load', e => {
-            this.onScriptLoad()
-        })
-    }
-
-    render() {
         return (
-            <div  id={this.props.id} className = "mapContainer"/>
+            <div  
+                ref={googleMapRef}
+                style={{ width: 600, height: 500 }}
+            />
         );
     }
-}
+
 
 export default Map
