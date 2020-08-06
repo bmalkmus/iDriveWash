@@ -3,23 +3,54 @@ import "./style.css"
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 
-function Footer () {
+function Footer ({weatherState, camState, alertState, setCamState, setWeatherState, setAlertState}) {
+    function stateCamera () {
+        if (camState) {
+            setCamState(false)
+    
+        }
+        else {
+            setCamState(true)
+     
+        }
+    }
+    function stateAlert () {
+        if (alertState) {
+            setAlertState(false)
+       
+        }
+        else {
+            setAlertState(true)
+        
+        }
+    }
+    function stateWeather () {
+        if (weatherState) {
+            setWeatherState(false)
+           
+        }
+        else {
+            setWeatherState(true)
+            
+        }
+    }
+
     return (
         <Navbar className = "control">
             <Nav className= "mr-auto control">
                 <Nav.Item>
                     
-                        <button>Cameras</button>
+                        <button onClick = {stateCamera}>Cameras</button>
             
                 </Nav.Item>
                 <Nav.Item>
                     
-                        <button>Weather</button>
+                        <button onClick = {stateWeather}>Weather</button>
                     
                 </Nav.Item>
                 <Nav.Item>
                     
-                        <button>Alerts</button>
+                        <button onClick = {stateAlert}>Alerts</button>
                    
                 </Nav.Item>
             </Nav>

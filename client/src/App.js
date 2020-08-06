@@ -5,7 +5,7 @@ import API from './components/utils/API';
 import Navigation from './components/navbar'
 import Footer from "./components/footer"
 
-const GOOGLE_MAP_API_KEY = 'SECRET';
+const GOOGLE_MAP_API_KEY = 'KEY';
 
 const loadGoogleMapScript = (callback) => {
   if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
@@ -20,15 +20,14 @@ const loadGoogleMapScript = (callback) => {
 
   function App () {
 
-  const cameraMarks = []
-  const alertMarks = []
-  const weatherMarks = []
+
 
   const [loadMap, setLoadMap] = useState(false);
   const [camState, setCamState] = useState(false);
   const [alertState, setAlertState] =useState(false);
   const [weatherState, setWeatherState] =useState(false);
- 
+
+  
   useEffect(() => {
     loadGoogleMapScript(() => {
       setLoadMap(true)
@@ -36,9 +35,8 @@ const loadGoogleMapScript = (callback) => {
   }, []);
 
 
-    let Cameras = [] 
 
-  function apiCameras() {
+  function apiCalls() {
     API.downCameras()
     .then (res => {
        let CamInfo = res.data
@@ -55,54 +53,83 @@ const loadGoogleMapScript = (callback) => {
                   title: e.Title
               });
 
-            cameraMarks.push(marker)
+
+
             
-
+            
           })
-              // API.postCamera({
-              //   CameraID:e.CameraID,
-              //   Latitude:e.CameraLocation.Latitude,
-              //   Longitude:e.CameraLocation.Longitude,
-              //   Image:e.ImageURL,
-              //   title:e.Title,
-              //   description:e.Description
-              // })
-              // .then((res) => {
-              //     console.log("Camera Loaded")
-              // })
-              // .catch((err) => console.log(err));
-              // });
 
-    
+            })
+            API.downWeath()
+            .then (res => {
+              let WeatherInfo = res.data
+              WeatherInfo
+                .forEach( e => {
+                  if (e.TemperatureInFahrenheit){
+                  let temp = e.TemperatureInFahrenheit.toString()
+                  let LatLng = {
+                    lat: e.Latitude,
+                    lng: e.Longitude
+                };
+
+                  const marker = new window.google.maps.Marker({
+                        position: LatLng,
+                        title: temp
+            });
+
         
-        
-                
-           
-        // }
-    })
-}
+                  }
+
+                })
+               
+            })
+
+            API.downAlerts()
+            .then (res => {
+              let WeatherInfo = res.data
+              WeatherInfo
+                .forEach( e => {
+                  let LatLng = {
+                    lat: e.StartRoadwayLocation.Latitude,
+                    lng: e.StartRoadwayLocation.Longitude
+                };
+
+                  const marker = new window.google.maps.Marker({
+                        position: LatLng,
+                        title: e.EventCatergory
+            });
+
+      
+
+                })
+               
+            })
+    }
 
 
-  
-
-  // render() {
-    // apiCameras();
-    console.log(Cameras.length)
+    apiCalls()
     return (
       <div className="App">
         <Navigation/>
     
-              {/* // center: { lat: 47.411293, lng: -120.55627 }, */}
-       
-            {/* // var trafficLayer = new window.google.maps.TrafficLayer();
-            // trafficLayer.setMap(map); */}
-        {!loadMap ? <div>Loading...</div> : <Map />}
-        <Footer/>
+ 
+        {!loadMap ? <div>Loading...</div> : <Map 
+                                              camState = {camState} 
+                                              alertState = {alertState} 
+                                              weatherState = {weatherState} 
+                                         
+                                              />}
+        <Footer 
+          setCamState = {setCamState} 
+          setAlertState = {setAlertState} 
+          setWeatherState = {setWeatherState}
+          camState = {camState} 
+          alertState = {alertState} 
+          weatherState = {weatherState}
+/>
       </div>
     );
 
 }
-//   }
-// }
 
 export default App;

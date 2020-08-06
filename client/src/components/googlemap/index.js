@@ -1,140 +1,142 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import API from '../utils/API';
 import "./style.css"
 
 require('dotenv').config();
 
-
-
-     function clearDB() {
-        API.clearCam()
-        .then (res => {
-            console.log("Cam Cleared!");
-            this.apiCameras();
-        })
-        .catch((err) => console.log(err));
-        API.clearAlerts()
-        .then (res => {
-            console.log("Alerts Cleared!");
-            this.apiAlerts();
-        })
-        .catch((err) => console.log(err));
-        API.clearWeather()
-        .then (res => {
-            console.log("Weather Cleared!");
-            this.apiWeather();
-        })
-        .catch((err) => console.log(err));
-    }
-
-    function apiWeather() {
-        API.downWeath()
-        .then (res => {
-            for (let i=0; i<res.data.length; i++){
-                
-                API.postWeath({
-                  ID: res.data[i].StationID,
-                  Lat:res.data[i].Latitude,
-                  Long:res.data[i].Longitude,
-                  Humidity:res.data[i].RelativeHumidity,
-                  Temp:res.data[i].TemperatureInFahrenheit,
-                  WindDirect:res.data[i].WindDirectionCardinal,
-                  WindSpeed:res.data[i].WindSpeedInMPH  
-                })
-                .then((res) => {
-                    console.log("weather station " +res)
-                })
-                .catch((err) => console.log(err));
-            }
-        })
-    }
-
-    function apiCameras() {
-        API.downCameras()
-        .then (res => {
-            console.log(res.data)
-            const mapId = document.getElementById(this.props.id);
-            const map = new window.google.maps.Map(mapId, this.props.options);
-            for (let i = 0; i < res.data.length; i++){
-                while (!res.data[i].CameraOwner === "WSDOT Aviation"){
-                    console.log("not airport")
-                let LatLng = {
-                    lat: res.data[i].CameraLocation.Latitude,
-                    lng: res.data[i].CameraLocation.Longitude
-                };
-
-                const marker = new window.google.maps.Marker({
-                    position: LatLng,
-                    title: res.data[i].Description
-                });
-
-                marker.setMap(map);
-            }
-            //     API.postCamera({
-            //         CameraID:res.data[i].CameraID,
-            //         Latitude:res.data[i].CameraLocation.Latitude,
-            //         Longitude:res.data[i].CameraLocation.Longitude,
-            //         Image:res.data[i].ImageURL,
-            //         title:res.data[i].Title,
-            //         description:res.data[i].Description
-            //     })
-            //     .then((res) => {
-            //         console.log("Camera Loaded")
-            //     })
-            //     .catch((err) => console.log(err));
-            
-            
-
-                    
-               
-            }
-        })
-    }
-
-    function apiAlerts() {
-        API.downAlerts()
-        .then (res => {
-            for (let i=0; i<res.data.length; i++){
-
-                API.postAlerts({
-                    AlertID:res.data[i].AlertID,
-                    Start: {
-                        Lat:res.data[i].StartRoadwayLocation.Latitude,
-                        Long:res.data[i].StartRoadwayLocation.Longitude,
-                        RoadName:res.data[i].StartRoadwayLocation.RoadName
-                    },
-                    End: {
-                        Lat:res.data[i].EndRoadwayLocation.Latitude,
-                        Long:res.data[i].EndRoadwayLocation.Longitude,
-                        RoadName:res.data[i].EndRoadwayLocation.RoadName
-                    },
-                    Priority:res.data[i].Priority,
-                    EventCatergory:res.data[i].EventCatergory
-                })
-                .then((res) => {
-                    console.log("alerts " +res)
-                })
-                .catch((err) => console.log(err));
-
-                    
-            }
-        })
-    }
-
-    
-    function Map(){
+ 
+    function Map({camState, alertState, weatherState}){
         const googleMapRef = useRef(null);
-        let googleMap = null;
+        let googleMap;
+
+
+        let alertMarks = []
+        let weatherMarks = []
+
+        function apiCalls() {
+            
+             
+                  
+                  
+                  
+                    API.downWeath()
+                    .then (res => {
+                      let WeatherInfo = res.data
+                      WeatherInfo
+                        .forEach( e => {
+                          if (e.TemperatureInFahrenheit){
+                          let temp = e.TemperatureInFahrenheit.toString()
+                          let LatLng = {
+                            lat: e.Latitude,
+                            lng: e.Longitude
+                        };
+        
+                          const marker = new window.google.maps.Marker({
+                                position: LatLng,
+                                title: temp
+                    });
+        
+                  weatherMarks.push(marker)
+                          }
+        
+                        })
+                    })
+        
+                    API.downAlerts()
+                    .then (res => {
+                      let WeatherInfo = res.data
+                      WeatherInfo
+                        .forEach( e => {
+                          let LatLng = {
+                            lat: e.StartRoadwayLocation.Latitude,
+                            lng: e.StartRoadwayLocation.Longitude
+                        };
+        
+                          const marker = new window.google.maps.Marker({
+                                position: LatLng,
+                                title: e.EventCatergory
+                    });
+        
+                  alertMarks.push(marker)
+        
+                        })
+                    })
+            }
         
         function Traffic() {
             var trafficLayer = new window.google.maps.TrafficLayer()
             trafficLayer.setMap(googleMap)
         }
+        
+        function camDots(){
+            if (camState) {
+                console.log("camera is " + camState)
+                Cameras(googleMap)
+                // for (var i = 0; i < cameraMarks.length; i++) {
+                //     console.log(i)
+                //     cameraMarks[i].setMap(googleMap);
+                //   }
+                // cameraMarks.forEach(e => {
+                //     e.setMap(googleMap)
+                // })
+            }
+            else {
+                console.log(camState)
+                Cameras(null)
+                // cameraMarks.forEach(e => {
+                //     e.setMap(null)
+                // })
+            }
+        }
+        function alertDots(){
+            if (alertState) {
+                console.log("Alerts are " + alertState)
+                Alerts(googleMap)
+                // alertMarks.forEach(e => {
+                //     e.setMap(googleMap)
+                // })
+            }
+            else {
+                console.log(alertState)
+                Alerts(null)
+                // alertMarks.forEach(e => {
+                //     e.setMap(null)
+                // })
+            }
+        }
+        function weatherDots(){
+            if (weatherState) {
+                console.log(weatherMarks.length)
+                // weatherMarks.forEach(e => {
+                //     console.log(e)
+                //     e.setMap(googleMap)
+                // })
+                Weather(googleMap)
+            }
+            else {
+                console.log(weatherState)
+                Weather(null)
+                // weatherMarks.forEach(e => {
+                //     e.setMap(null)
+                // })
+            }
+        }
         useEffect(() => {
+            apiCalls()
+            console.log('this Effect is called')
+        }, [])
+        useEffect(() => {
+            console.log('useEffect is running')
             googleMap = initGoogleMap();
             Traffic();
+            alertDots()
+            camDots()
+            weatherDots()
             // createMarker();
-        }, []);
+        }, [[camState, weatherState, alertState]]);
+
+
+
 
         function initGoogleMap ()  {
             return new window.google.maps.Map(googleMapRef.current, {
