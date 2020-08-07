@@ -68,26 +68,26 @@ require('dotenv').config();
             trafficLayer.setMap(googleMap)
         }
         
-        function camDots(){
-            if (camState) {
-                console.log("camera is " + camState)
-                Cameras(googleMap)
-                // for (var i = 0; i < cameraMarks.length; i++) {
-                //     console.log(i)
-                //     cameraMarks[i].setMap(googleMap);
-                //   }
-                // cameraMarks.forEach(e => {
-                //     e.setMap(googleMap)
-                // })
-            }
-            else {
-                console.log(camState)
-                Cameras(null)
-                // cameraMarks.forEach(e => {
-                //     e.setMap(null)
-                // })
-            }
-        }
+        // function camDots(){
+        //     if (camState) {
+        //         console.log("camera is " + camState)
+        //         Cameras(googleMap)
+        //         // for (var i = 0; i < cameraMarks.length; i++) {
+        //         //     console.log(i)
+        //         //     cameraMarks[i].setMap(googleMap);
+        //         //   }
+        //         // cameraMarks.forEach(e => {
+        //         //     e.setMap(googleMap)
+        //         // })
+        //     }
+        //     else {
+        //         console.log(camState)
+        //         Cameras(null)
+        //         // cameraMarks.forEach(e => {
+        //         //     e.setMap(null)
+        //         // })
+        //     }
+        // }
         function alertDots(){
             if (alertState) {
                 console.log("Alerts are " + alertState)
@@ -130,7 +130,7 @@ require('dotenv').config();
             googleMap = initGoogleMap();
             Traffic();
             alertDots()
-            camDots()
+            // camDots()
             weatherDots()
             // createMarker();
         }, [[camState, weatherState, alertState]]);
