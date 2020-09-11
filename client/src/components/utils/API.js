@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 require('dotenv').config();
-const key = 'key';
+const key = 'ce8eaa09-17ad-46c4-b626-97eaa3a2199d';
 
 export default {
     clearCam: function () {
