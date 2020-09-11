@@ -6,12 +6,12 @@ const alertsSchema = new Schema ({
     Start: {
         Lat: {type: Number, required: true},
         Long: {type: Number, required: true},
-        RoadName: {type: Number, required: true}
+        RoadName: {type: String, required: true}
     },
     End: {
         Lat: {type: Number, required: true},
         Long: {type: Number, required: true},
-        RoadName: {type: Number, required: true}
+        RoadName: {type: String, required: true}
     },
     Priority: {type: String},
     EventCategory: {type: String}

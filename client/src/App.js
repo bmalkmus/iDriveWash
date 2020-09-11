@@ -35,135 +35,102 @@ const GOOGLE_MAP_API_KEY = 'key';
   //   });
   // }, []);
 
+  useEffect(() => {
+    apiCalls();
+  }, [])
 
 
   function apiCalls() {
     console.log("API CALL RAN")
-    // API.downCameras()
-    // .then (res => {
-    //   if(API.CameraList()){
-    //     console.log("database already loaded")
-    //   }
-    //   else{
-    //     let CamInfo = res.data
-    //      CamInfo
-    //        .filter(Camera => Camera.CameraOwner !== "WSDOT Aviation")
-    //        .forEach(e => {
-    //          setTimeout(() => {
-               
-    //            API.postCamera({
-    //                CameraID:e.CameraID,
-    //                Latitude:e.CameraLocation.Latitude,
-    //                Longitude:e.CameraLocation.Longitude,
-    //                Image:e.ImageURL,
-    //                title:e.Title,
-    //                description:e.Description
-    //              })
-    //              .then((res) => {
-    //                    console.log("Camera Loaded")
-    //                })
-    //                .catch((err) => console.log(err));
-    //          }, 100);
-
-    //             });
-    //           }
-    //        })
-
-      let cameras = {Cameras};
-      API.CameraList().then(res => {
-        
-        if (res.data.length > 0){
-          console.log("database already exists")
-        }
-        else{
-          let CamData = Object.values(cameras)
-          CamData = CamData[0]
-          CamData.filter(Camera => Camera.CameraOwner !== "WSDOT Aviation")
-          .forEach(e => {
-            setTimeout(() => {
-                         API.postCamera({
-                             CameraID:e.CameraID,
-                             Latitude:e.CameraLocation.Latitude,
-                             Longitude:e.CameraLocation.Longitude,
-                             Image:e.ImageURL,
-                             title:e.Title,
-                             description:e.Description
-                           })
-                           .then((res) => {
-                                 console.log("Camera Loaded")
-                             })
-                             .catch((err) => console.log(err));
-                       }, 100);
-          })
-        }
-      })
-
-          // .forEach(e => {
-          //   let LatLng = {
-          //             lat: e.CameraLocation.Latitude,
-          //             lng: e.CameraLocation.Longitude
-          //         };
-
-          //   // const marker = new window.google.maps.Marker({
-          //   //       position: LatLng,
-          //   //       title: e.Title
-          //   //   });
-
-
-
-            
-            
-          // })
-
-            // })
-            // API.downWeath()
-            // .then (res => {
-            //   let WeatherInfo = res.data
-            //   WeatherInfo
-            //     .forEach( e => {
-            //       if (e.TemperatureInFahrenheit){
-            //       let temp = e.TemperatureInFahrenheit.toString()
-            //       let LatLng = {
-            //         lat: e.Latitude,
-            //         lng: e.Longitude
-            //     };
-
-            //       const marker = new window.google.maps.Marker({
-            //             position: LatLng,
-            //             title: temp
-            // });
-
-        
-            //       }
-
-            //     })
-               
-            // })
-
-            // API.downAlerts()
-            // .then (res => {
-            //   let WeatherInfo = res.data
-            //   WeatherInfo
-            //     .forEach( e => {
-            //       let LatLng = {
-            //         lat: e.StartRoadwayLocation.Latitude,
-            //         lng: e.StartRoadwayLocation.Longitude
-            //     };
-
-            //       const marker = new window.google.maps.Marker({
-            //             position: LatLng,
-            //             title: e.EventCatergory
-            // });
-
+    API.clearWeather();
+    API.clearAlerts();
+    let cameras = {Cameras};
+    API.CameraList().then(res => {
       
+      if (res.data.length > 0){
+        console.log("database already exists")
+      }
+      else{
+        let CamData = Object.values(cameras)
+        CamData = CamData[0]
+        CamData.filter(Camera => Camera.CameraOwner !== "WSDOT Aviation")
+        .forEach(e => {
+          setTimeout(() => {
+                        API.postCamera({
+                            CameraID:e.CameraID,
+                            Latitude:e.CameraLocation.Latitude,
+                            Longitude:e.CameraLocation.Longitude,
+                            Image:e.ImageURL,
+                            title:e.Title,
+                            description:e.Description
+                          })
+                          .then((res) => {
+                                console.log("Camera Loaded")
+                            })
+                            .catch((err) => console.log(err));
+                      }, 100);
+        })
+      }
+    })
+    API.downWeath()
+    .then (res => {
+        for (let i=0; i<res.data.length; i++){
+            if (res.data[i].TemperatureInFahrenheit && res.data[i].RelativeHumidity){
+              API.postWeath({
+                ID: res.data[i].StationID,
+                Lat:res.data[i].Latitude,
+                Long:res.data[i].Longitude,
+                Humidity:res.data[i].RelativeHumidity,
+                Temp:res.data[i].TemperatureInFahrenheit,
+                WindDirect:res.data[i].WindDirectionCardinal,
+                WindSpeed:res.data[i].WindSpeedInMPH  
+              })
+              .then((res) => {
+                  console.log("weather station " +res)
+              })
+              .catch((err) => {
+                                console.log(err);
+                                console.log("Err at: " + res.data[i].StationID)
+                              });
+            }
+        }
+    })
 
-            //     })
-               
-            // })
-    }
+    API.downAlerts()
+    .then (res => {
+        for (let i=0; i<res.data.length; i++){
+
+            API.postAlerts({
+                AlertID:res.data[i].AlertID,
+                Start: {
+                    Lat:res.data[i].StartRoadwayLocation.Latitude,
+                    Long:res.data[i].StartRoadwayLocation.Longitude,
+                    RoadName:res.data[i].StartRoadwayLocation.RoadName
+                },
+                End: {
+                    Lat:res.data[i].EndRoadwayLocation.Latitude,
+                    Long:res.data[i].EndRoadwayLocation.Longitude,
+                    RoadName:res.data[i].EndRoadwayLocation.RoadName
+                },
+                Priority:res.data[i].Priority,
+                EventCatergory:res.data[i].EventCatergory
+            })
+            .then((res) => {
+                console.log("alerts " +res)
+            })
+            .catch((err) => {
+              console.log(err);
+              console.log(res.data[i].AlertID + " Failed to load")
+            });
+
+                
+        }
+    });
+  }
 
 
-    apiCalls()
+    // apiCalls()
+
     return (
       <div className="App">
         <Navigation/>

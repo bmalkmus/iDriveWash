@@ -163,3 +163,15 @@
                     //         }
                     //     })
                     // }
+
+// -------------------------------------Markers code ---------------------
+ // .forEach(e => {
+          //   let LatLng = {
+          //             lat: e.CameraLocation.Latitude,
+          //             lng: e.CameraLocation.Longitude
+          //         };
+
+          //   // const marker = new window.google.maps.Marker({
+          //   //       position: LatLng,
+          //   //       title: e.Title
+          //   //   });
