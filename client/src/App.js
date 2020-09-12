@@ -37,7 +37,15 @@ const GOOGLE_MAP_API_KEY = 'key';
 
   useEffect(() => {
     apiCalls();
+    // const interval = setInterval(() => {
+    //   updateInfo()
+    // }, 4000);
+    // return () => clearInterval(interval);
   }, [])
+
+  function updateInfo(){
+    console.log("I'm updating");
+  }
 
 
   function apiCalls() {
