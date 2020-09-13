@@ -37,16 +37,18 @@ const GOOGLE_MAP_API_KEY = 'key';
 
   useEffect(() => {
     apiCalls();
-    // const interval = setInterval(() => {
-    //   updateInfo()
-    // }, 4000);
-    // return () => clearInterval(interval);
-  }, [])
+    const interval = setInterval(() => {
+      updateInfo()
+    }, 30*60*1000);
+    return () => clearInterval(interval);
+  }, []);
 
   function updateInfo(){
-    console.log("I'm updating");
+    API.clearWeather();
+    API.clearAlerts();
+    dWeath();
+    dAlert();
   }
-
 
   function apiCalls() {
     console.log("API CALL RAN")
@@ -80,6 +82,14 @@ const GOOGLE_MAP_API_KEY = 'key';
         })
       }
     })
+    dWeath();
+    dAlert();
+
+
+    
+  }
+
+  function dWeath(){
     API.downWeath()
     .then (res => {
         for (let i=0; i<res.data.length; i++){
@@ -103,7 +113,9 @@ const GOOGLE_MAP_API_KEY = 'key';
             }
         }
     })
+  }
 
+  function dAlert(){
     API.downAlerts()
     .then (res => {
         for (let i=0; i<res.data.length; i++){
@@ -135,9 +147,7 @@ const GOOGLE_MAP_API_KEY = 'key';
         }
     });
   }
-
-
-    // apiCalls()
+  
 
     return (
       <div className="App">
