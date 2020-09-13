@@ -8,32 +8,32 @@ import Cameras from "./cameras.json";
 
 const GOOGLE_MAP_API_KEY = 'key';
 
-// const loadGoogleMapScript = (callback) => {
-//   if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
-//     callback();
-//   } else {
-//     const googleMapScript = document.createElement("script");
-//     googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}`;
-//     window.document.body.appendChild(googleMapScript);
-//     googleMapScript.addEventListener("load", callback);
-//   }
-// }
+const loadGoogleMapScript = (callback) => {
+  if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
+    callback();
+  } else {
+    const googleMapScript = document.createElement("script");
+    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}`;
+    window.document.body.appendChild(googleMapScript);
+    googleMapScript.addEventListener("load", callback);
+  }
+}
 
   function App () {
 
 
 
-  // const [loadMap, setLoadMap] = useState(false);
+  const [loadMap, setLoadMap] = useState(false);
   const [camState, setCamState] = useState(false);
   const [alertState, setAlertState] =useState(false);
   const [weatherState, setWeatherState] =useState(false);
 
   
-  // useEffect(() => {
-  //   loadGoogleMapScript(() => {
-  //     setLoadMap(true)
-  //   });
-  // }, []);
+  useEffect(() => {
+    loadGoogleMapScript(() => {
+      setLoadMap(true)
+    });
+  }, []);
 
   useEffect(() => {
     apiCalls();
@@ -48,6 +48,7 @@ const GOOGLE_MAP_API_KEY = 'key';
     API.clearAlerts();
     dWeath();
     dAlert();
+    console.log("info updated")
   }
 
   function apiCalls() {
@@ -147,6 +148,8 @@ const GOOGLE_MAP_API_KEY = 'key';
         }
     });
   }
+
+
   
 
     return (
@@ -154,12 +157,12 @@ const GOOGLE_MAP_API_KEY = 'key';
         <Navigation/>
     
  
-        {/* {!loadMap ? <div>Loading...</div> : <Map 
+        {!loadMap ? <div>Loading...</div> : <Map 
                                               camState = {camState} 
                                               alertState = {alertState} 
                                               weatherState = {weatherState} 
                                          
-                                              />} */}
+                                              />}
         <Footer 
           setCamState = {setCamState} 
           setAlertState = {setAlertState} 

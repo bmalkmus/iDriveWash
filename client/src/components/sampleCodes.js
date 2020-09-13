@@ -175,3 +175,109 @@
           //   //       position: LatLng,
           //   //       title: e.Title
           //   //   });
+
+// ----------------------------------- API call----------------------------
+        // function apiCalls() {
+            
+             
+                  
+                  
+                  
+        //             API.downWeath()
+        //             .then (res => {
+        //               let WeatherInfo = res.data
+        //               WeatherInfo
+        //                 .forEach( e => {
+        //                   if (e.TemperatureInFahrenheit){
+        //                   let temp = e.TemperatureInFahrenheit.toString()
+        //                   let LatLng = {
+        //                     lat: e.Latitude,
+        //                     lng: e.Longitude
+        //                 };
+        
+        //                   const marker = new window.google.maps.Marker({
+        //                         position: LatLng,
+        //                         title: temp
+        //             });
+        
+        //           weatherMarks.push(marker)
+        //                   }
+        
+        //                 })
+        //             })
+        
+        //             API.downAlerts()
+        //             .then (res => {
+        //               let WeatherInfo = res.data
+        //               WeatherInfo
+        //                 .forEach( e => {
+        //                   let LatLng = {
+        //                     lat: e.StartRoadwayLocation.Latitude,
+        //                     lng: e.StartRoadwayLocation.Longitude
+        //                 };
+        
+        //                   const marker = new window.google.maps.Marker({
+        //                         position: LatLng,
+        //                         title: e.EventCatergory
+        //             });
+        
+        //           alertMarks.push(marker)
+        
+        //                 })
+        //             })
+        //     }
+
+        // ---------------------------------------------------------------------
+        function camDots(){
+          //     if (camState) {
+          //         console.log("camera is " + camState)
+          //         Cameras(googleMap)
+          //         // for (var i = 0; i < cameraMarks.length; i++) {
+          //         //     console.log(i)
+          //         //     cameraMarks[i].setMap(googleMap);
+          //         //   }
+          //         // cameraMarks.forEach(e => {
+          //         //     e.setMap(googleMap)
+          //         // })
+          //     }
+          //     else {
+          //         console.log(camState)
+          //         Cameras(null)
+          //         // cameraMarks.forEach(e => {
+          //         //     e.setMap(null)
+          //         // })
+          //     }
+          // }
+          // function alertDots(){
+          //     if (alertState) {
+          //         console.log("Alerts are " + alertState)
+          //         Alerts(googleMap)
+          //         // alertMarks.forEach(e => {
+          //         //     e.setMap(googleMap)
+          //         // })
+          //     }
+          //     else {
+          //         console.log(alertState)
+          //         Alerts(null)
+          //         // alertMarks.forEach(e => {
+          //         //     e.setMap(null)
+          //         // })
+          //     }
+          // }
+          // function weatherDots(){
+          //     if (weatherState) {
+          //         console.log(weatherMarks.length)
+          //         // weatherMarks.forEach(e => {
+          //         //     console.log(e)
+          //         //     e.setMap(googleMap)
+          //         // })
+          //         Weather(googleMap)
+          //     }
+          //     else {
+          //         console.log(weatherState)
+          //         Weather(null)
+          //         // weatherMarks.forEach(e => {
+          //         //     e.setMap(null)
+          //         // })
+          //     }
+          // }
