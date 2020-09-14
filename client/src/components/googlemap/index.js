@@ -27,6 +27,16 @@ require('dotenv').config();
                         position: LatLng,
                         title: e.title
                     });
+
+                    const infowindow = new window.google.maps.InfoWindow({
+                        content: "This is a test marker"
+                      });
+
+                    marker.addListener("click", () => {
+                        infowindow.open(googleMap,marker)
+                      });
+
+
                     camMarks.push(marker);
                     if (camState){
                         marker.setMap(googleMap)
