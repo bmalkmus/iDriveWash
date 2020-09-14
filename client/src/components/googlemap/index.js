@@ -28,8 +28,14 @@ require('dotenv').config();
                         title: e.title
                     });
 
+                    const content = `<div id="markerContent"` + 
+                    `<h1>${e.title}</h!>`+
+                    `<br>`+
+                    `<img src=${e.Image} alt="${e.title} camera" width="400" height="400">`
+                    `</div>`;
+
                     const infowindow = new window.google.maps.InfoWindow({
-                        content: "This is a test marker"
+                        content: content
                       });
 
                     marker.addListener("click", () => {
