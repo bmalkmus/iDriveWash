@@ -228,7 +228,7 @@
         //     }
 
         // ---------------------------------------------------------------------
-        function camDots(){
+        // function camDots(){
           //     if (camState) {
           //         console.log("camera is " + camState)
           //         Cameras(googleMap)

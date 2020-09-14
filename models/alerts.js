@@ -14,7 +14,8 @@ const alertsSchema = new Schema ({
         RoadName: {type: String, required: true}
     },
     Priority: {type: String},
-    EventCategory: {type: String}
+    EventCategory: {type: String},
+    HeadlineDescription:{type: String}
 });
 
 const Alert = mongoose.model("Alert", alertsSchema);

@@ -134,7 +134,8 @@ const loadGoogleMapScript = (callback) => {
                     RoadName:res.data[i].EndRoadwayLocation.RoadName
                 },
                 Priority:res.data[i].Priority,
-                EventCatergory:res.data[i].EventCatergory
+                EventCategory:res.data[i].EventCategory,
+                HeadlineDescription:res.data[i].HeadlineDescription
             })
             .then((res) => {
                 console.log("alerts " +res)

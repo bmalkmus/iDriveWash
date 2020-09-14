@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import API from '../utils/API';
 import "./style.css"
 
@@ -28,11 +28,12 @@ require('dotenv').config();
                         title: e.title
                     });
 
-                    const content = `<div id="markerContent"` + 
-                    `<h1>${e.title}</h!>`+
-                    `<br>`+
-                    `<img src=${e.Image} alt="${e.title} camera" width="400" height="400">`
-                    `</div>`;
+                    const content = '<div class="markerContent"' + 
+                    '<h1>'+e.title+'</h!>'+
+                    '<br>'+
+                    '<img src="'+e.Image+'" alt='
+                    +e.title + 'camera width="400" height="400">'+
+                    '</div>';
 
                     const infowindow = new window.google.maps.InfoWindow({
                         content: content
@@ -69,6 +70,39 @@ require('dotenv').config();
                         position: LatLng,
                         title: temp
                     });
+                    let content;
+                    if (e.WindSpeed){
+                    content = '<div class="markerContent"' + 
+                    '<h1>Weather Information</h1>'+
+                    '<br>'+
+                    '<p class="WeatherInfo">Temperature: '+e.Temp.toString()+ '&#8457 <br>' +
+                    'Humidity: '+e.Humidity.toString()+'&#37 <br>'+
+                    'Wind Speed: '+ e.WindSpeed.toString() + ' mph <br>'+
+                    'Wind Direction: '+e.WindDirect+
+                    '</p>'+
+                    '</div>';
+                    }
+                    else {
+                        content = '<div class="markerContent"' + 
+                        '<h1>Weather Information</h1>'+
+                        '<br>'+
+                        '<p class="WeatherInfo">Temperature: '+e.Temp.toString()+ '&#8457 <br>' +
+                        'Humidity: '+e.Humidity.toString()+'&#37 <br>'+
+                        'Wind Direction: '+e.WindDirect+
+                        '</p>'+
+                        '</div>';  
+                    }
+
+                    const infowindow = new window.google.maps.InfoWindow({
+                        content: content
+                      });
+
+                    marker.addListener("click", () => {
+                        infowindow.open(googleMap,marker)
+                      });
+
+                    
+
                     weatherMarks.push(marker);
                     if (weatherState){
                         marker.setMap(googleMap)
@@ -93,6 +127,24 @@ require('dotenv').config();
                         position: LatLng,
                         title: e.Priority
                     });
+
+                    const content = '<div class="markerContent"' + 
+                    '<h1>Alert Information</h1>'+
+                    '<br>'+
+                    '<h2>'+e.EventCategory+'</h2>'+
+                    '<br>'+
+                    '<p>'+e.HeadlineDescription+'</p>'+
+                    
+                    '</div>';
+
+                    const infowindow = new window.google.maps.InfoWindow({
+                        content: content
+                      });
+
+                    marker.addListener("click", () => {
+                        infowindow.open(googleMap,marker)
+                      });
+
                     alertMarks.push(marker)
                     if (alertState){
                         marker.setMap(googleMap)
