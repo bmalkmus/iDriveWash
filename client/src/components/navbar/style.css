@@ -1,0 +1,16 @@
+.navigation{
+    height: 60px;
+    display: flex;
+    background-color: blue;
+    width:100%;
+    padding:5px;
+}
+
+.Brand{
+    font-size: 35px;
+}
+
+.logo{
+    color: rgb(0,128,84);
+    flex: right;
+}
