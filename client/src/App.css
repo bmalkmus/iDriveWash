@@ -1,3 +1,7 @@
 body {
+  background-image: url("/washRoad.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   background-color: rgb(0,128,84);
 }
