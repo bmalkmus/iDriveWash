@@ -2,9 +2,11 @@
     height: 60px;
     display: flex;
     justify-content: space-between;
-    background-color: blue;
+    background-color: black;
     width:100%;
+    margin: 0px;
     padding:5px;
+    box-shadow: 0px 10px 10px whitesmoke, 0px 10px 10px grey;
 }
 
 .Brand{

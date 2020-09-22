@@ -39,8 +39,8 @@ function Footer ({weatherState, camState, alertState, setCamState, setWeatherSta
     }
 
     return (
-        <Navbar className = "control">
-            <Nav className= "mr-auto control">
+        <Navbar className = "controlBar">
+            <Nav className= "mr-auto controls">
                 <Nav.Item>
                     
                         <button onClick = {stateCamera}>Cameras</button>
