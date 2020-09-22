@@ -1,6 +1,7 @@
 .navigation{
     height: 60px;
     display: flex;
+    justify-content: space-between;
     background-color: blue;
     width:100%;
     padding:5px;
@@ -8,9 +9,12 @@
 
 .Brand{
     font-size: 35px;
+    padding-top: 5px;
 }
 
 .logo{
     color: rgb(0,128,84);
-    flex: right;
+    display: inline;
+    margin-left: 20px;
+
 }

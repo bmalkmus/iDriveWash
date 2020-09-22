@@ -190,7 +190,7 @@ require('dotenv').config();
           }
 
         return (
-            <div  
+            <div  id ="mapContainer"
                 ref={googleMapRef}
                 style={{ width: 1019.33, height: 700 }}
             />
