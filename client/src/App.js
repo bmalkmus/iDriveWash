@@ -155,6 +155,8 @@ const loadGoogleMapScript = (callback) => {
 
     return (
       <div className="App">
+      <img className = "backImage" src= {process.env.PUBLIC_URL + '/washRoad.jpg'}/>
+      <div className="frontContent">
         <Navigation/>
     
  
@@ -172,6 +174,7 @@ const loadGoogleMapScript = (callback) => {
           alertState = {alertState} 
           weatherState = {weatherState}
 />
+      </div>
       </div>
     );
 
