@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 require('dotenv').config();
-const key = 'key';
+const key = process.env.REACT_APP_WASHAPI;
 
 export default {
     clearCam: function () {
