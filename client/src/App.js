@@ -6,7 +6,7 @@ import Navigation from './components/navbar';
 import Footer from "./components/footer";
 import Cameras from "./cameras.json";
 
-const GOOGLE_MAP_API_KEY = 'key';
+const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLEAPI;
 
 const loadGoogleMapScript = (callback) => {
   if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
