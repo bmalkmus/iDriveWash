@@ -55,14 +55,12 @@ const loadGoogleMapScript = (callback) => {
   }
 
   function apiCalls() {
-    console.log("API CALL RAN")
     API.clearWeather();
     API.clearAlerts();
     let cameras = {Cameras};
     API.CameraList().then(res => {
       
       if (res.data.length > 0){
-        console.log("database already exists")
       }
       else{
         let CamData = Object.values(cameras)
@@ -112,7 +110,6 @@ const loadGoogleMapScript = (callback) => {
               })
               .catch((err) => {
                                 console.log(err);
-                                console.log("Err at: " + res.data[i].StationID)
                               });
             }
         }
@@ -145,7 +142,6 @@ const loadGoogleMapScript = (callback) => {
             })
             .catch((err) => {
               console.log(err);
-              console.log(res.data[i].AlertID + " Failed to load")
             });
 
                 

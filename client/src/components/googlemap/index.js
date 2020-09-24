@@ -59,7 +59,6 @@ require('dotenv').config();
             API.WeatherList()
             .then(res => {
                 let weatherDot = res.data
-                console.log(weatherDot)
                 weatherDot.forEach(e => {
                     let temp = e.Temp.toString()
                     let LatLng = {
@@ -172,7 +171,6 @@ require('dotenv').config();
         //     console.log('this Effect is called')
         // }, [])
         useEffect(() => {
-            console.log('useEffect is running')
             googleMap = initGoogleMap();
             Traffic();
             cameraMarkers();
