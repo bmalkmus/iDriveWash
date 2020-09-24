@@ -59,6 +59,7 @@ require('dotenv').config();
             API.WeatherList()
             .then(res => {
                 let weatherDot = res.data
+                console.log(weatherDot)
                 weatherDot.forEach(e => {
                     let temp = e.Temp.toString()
                     let LatLng = {

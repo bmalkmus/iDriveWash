@@ -14,6 +14,7 @@ const corsOptions = {
   enablePreflight: true
 }
 
+
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions))
 
@@ -29,18 +30,6 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes);
 
-mongoose.connect("mongodb://"+process.env.COSMOSDB_HOST+":"+process.env.COSMOSDB_PORT+"/"+process.env.COSMOSDB_DBNAME+"?ssl=true&replicaSet=globaldb", {
-  auth: {
-    user: process.env.COSMODDB_USER,
-    password: process.env.COSMOSDB_PASSWORD
-  },
-useNewUrlParser: true,
-useUnifiedTopology: true,
-retryWrites: false
-})
-.then(() => console.log('Connection to CosmosDB successful'))
-.catch((err) => console.error(err));
-
 // mongoose.connect("mongodb://"+process.env.COSMOSDB_HOST+":"+process.env.COSMOSDB_PORT+"/"+process.env.COSMOSDB_DBNAME+"?ssl=true&replicaSet=globaldb", {
 //   auth: {
 //     user: process.env.COSMODDB_USER,
@@ -49,9 +38,21 @@ retryWrites: false
 // useNewUrlParser: true,
 // useUnifiedTopology: true,
 // retryWrites: false
-// } || "mongodb://localhost/idrivewash", {useNewUrlParser: true,  useUnifiedTopology: true })
-// .then(() => console.log('MongoDB Connected'))
-// .catch((err) => console.log(err));
+// })
+// .then(() => console.log('Connection to CosmosDB successful'))
+// .catch((err) => console.error(err));
+
+mongoose.connect("mongodb://"+process.env.COSMOSDB_HOST+":"+process.env.COSMOSDB_PORT+"/"+process.env.COSMOSDB_DBNAME+"?ssl=true&replicaSet=globaldb", {
+  auth: {
+    user: process.env.COSMODDB_USER,
+    password: process.env.COSMOSDB_PASSWORD
+  },
+useNewUrlParser: true,
+useUnifiedTopology: true,
+retryWrites: false
+} || "mongodb://localhost/idrivewash", {useNewUrlParser: true,  useUnifiedTopology: true })
+.then(() => console.log('MongoDB Connected'))
+.catch((err) => console.log(err));
 
 
 // Send every request to the React app
