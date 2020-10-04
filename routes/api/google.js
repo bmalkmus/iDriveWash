@@ -2,7 +2,7 @@ const router = require('express').Router();
 const axios = require ('axios')
 
 const url = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API}`
-
+console.log(process.env.GOOGLE_API)
 // const getData = async (url) => {
 //     try {
 //       const response = axios.get(url)
