@@ -1,5 +1,6 @@
 const db = require("../models");
 
+
 module.exports = {
     clearWeather: function (req, res) {
         db.Weather

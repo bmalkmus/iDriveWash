@@ -17,6 +17,7 @@ require('dotenv').config();
             API.CameraList()
             .then(res => {
                 let camera = res.data
+                console.log(camera)
                 camera.forEach(e => {
                     let LatLng = {
                                     lat: e.Latitude,
