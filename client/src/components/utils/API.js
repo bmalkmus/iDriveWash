@@ -5,6 +5,9 @@ require('dotenv').config();
 const key = keys.wash();
 
 export default {
+    googleInfo: function () {
+        return axios.get('api/google')
+    },
     clearCam: function () {
         return axios.delete('api/cameras')   
     },
