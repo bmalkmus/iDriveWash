@@ -5,10 +5,6 @@ import API from './components/utils/API';
 import Navigation from './components/navbar';
 import Footer from "./components/footer";
 import Cameras from "./cameras.json";
-import keys from './keys';
-
-const google = keys.google();
-// const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_API;
 
 
 const loadGoogleMapScript = (callback) => {
@@ -16,7 +12,8 @@ const loadGoogleMapScript = (callback) => {
     callback();
   } else {
     const googleMapScript = document.createElement("script");
-    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${google}`;
+    // googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${google}`;
+    googleMapScript.src = `/api/google`;
     window.document.body.appendChild(googleMapScript);
     googleMapScript.addEventListener("load", callback);
   }
