@@ -13,7 +13,7 @@ const loadGoogleMapScript = (callback) => {
   } else {
     const googleMapScript = document.createElement("script");
     // googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${google}`;
-    googleMapScript.src = `/api/google`;
+    googleMapScript.src = `%PUBLIC_URL%/api/google`;
     window.document.body.appendChild(googleMapScript);
     googleMapScript.addEventListener("load", callback);
   }
