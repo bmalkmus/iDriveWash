@@ -17,22 +17,24 @@ require('dotenv').config();
             API.CameraList()
             .then(res => {
                 let camera = res.data
-                camera.forEach(e => {
+                console.log(camera)
+                console.log(typeof(camera))
+                camera.forEach(item => {
                     let LatLng = {
-                                    lat: e.Latitude,
-                                    lng: e.Longitude
+                                    lat: item.Latitude,
+                                    lng: item.Longitude
                                 };
               
                     const marker = new window.google.maps.Marker({
                         position: LatLng,
-                        title: e.title
+                        title: item.title
                     });
 
                     const content = '<div class="markerContent"' + 
-                    '<h1>'+e.title+'</h!>'+
+                    '<h1>'+item.title+'</h!>'+
                     '<br>'+
-                    '<img src="'+e.Image+'" alt='
-                    +e.title + 'camera width="400" height="400">'+
+                    '<img src="'+item.Image+'" alt='
+                    +item.title + 'camera width="400" height="400">'+
                     '</div>';
 
                     const infowindow = new window.google.maps.InfoWindow({
@@ -59,11 +61,11 @@ require('dotenv').config();
             API.WeatherList()
             .then(res => {
                 let weatherDot = res.data
-                weatherDot.forEach(e => {
-                    let temp = e.Temp.toString()
+                weatherDot.forEach(item => {
+                    let temp = item.Temp.toString()
                     let LatLng = {
-                        lat: e.Lat,
-                        lng: e.Long
+                        lat: item.Lat,
+                        lng: item.Long
                     };
   
                     const marker = new window.google.maps.Marker({
@@ -71,14 +73,14 @@ require('dotenv').config();
                         title: temp
                     });
                     let content;
-                    if (e.WindSpeed){
+                    if (item.WindSpeed){
                     content = '<div class="markerContent"' + 
                     '<h1>Weather Information</h1>'+
                     '<br>'+
-                    '<p class="WeatherInfo">Temperature: '+e.Temp.toString()+ '&#8457 <br>' +
-                    'Humidity: '+e.Humidity.toString()+'&#37 <br>'+
-                    'Wind Speed: '+ e.WindSpeed.toString() + ' mph <br>'+
-                    'Wind Direction: '+e.WindDirect+
+                    '<p class="WeatherInfo">Temperature: '+item.Temp.toString()+ '&#8457 <br>' +
+                    'Humidity: '+item.Humidity.toString()+'&#37 <br>'+
+                    'Wind Speed: '+ item.WindSpeed.toString() + ' mph <br>'+
+                    'Wind Direction: '+item.WindDirect+
                     '</p>'+
                     '</div>';
                     }
@@ -86,9 +88,9 @@ require('dotenv').config();
                         content = '<div class="markerContent"' + 
                         '<h1>Weather Information</h1>'+
                         '<br>'+
-                        '<p class="WeatherInfo">Temperature: '+e.Temp.toString()+ '&#8457 <br>' +
-                        'Humidity: '+e.Humidity.toString()+'&#37 <br>'+
-                        'Wind Direction: '+e.WindDirect+
+                        '<p class="WeatherInfo">Temperature: '+item.Temp.toString()+ '&#8457 <br>' +
+                        'Humidity: '+item.Humidity.toString()+'&#37 <br>'+
+                        'Wind Direction: '+item.WindDirect+
                         '</p>'+
                         '</div>';  
                     }
@@ -118,22 +120,22 @@ require('dotenv').config();
             API.AlertsList()
             .then(res => {
                 let alertDot = res.data
-                alertDot.forEach(e => {
+                alertDot.forEach(item => {
                     let LatLng = {
-                        lat: e.Start.Lat,
-                        lng: e.Start.Long
+                        lat: item.Start.Lat,
+                        lng: item.Start.Long
                     };
                     const marker = new window.google.maps.Marker({
                         position: LatLng,
-                        title: e.Priority
+                        title: item.Priority
                     });
 
                     const content = '<div class="markerContent"' + 
                     '<h1>Alert Information</h1>'+
                     '<br>'+
-                    '<h2>'+e.EventCategory+'</h2>'+
+                    '<h2>'+item.EventCategory+'</h2>'+
                     '<br>'+
-                    '<p>'+e.HeadlineDescription+'</p>'+
+                    '<p>'+item.HeadlineDescription+'</p>'+
                     
                     '</div>';
 
