@@ -6,7 +6,7 @@ import Navigation from './components/navbar';
 import Footer from "./components/footer";
 import Cameras from "./cameras.json";
 
-
+console.log (window.location.href)
 const loadGoogleMapScript = (callback) => {
   if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
     callback();
