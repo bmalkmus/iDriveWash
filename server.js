@@ -41,6 +41,7 @@ app.use(routes);
 // })
 // .then(() => console.log('Connection to CosmosDB successful'))
 // .catch((err) => console.error(err));
+console.log("connecting to DB")
 mongoose.connect(
   process.env.ATLAS_CONNECT, {useNewUrlParser:true, useUnifiedTopology: true})
 //   "mongodb://"+process.env.COSMOSDB_HOST+":"+process.env.COSMOSDB_PORT+"/"+process.env.COSMOSDB_DBNAME+"?ssl=true&replicaSet=globaldb", {
