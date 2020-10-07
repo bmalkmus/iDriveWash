@@ -17,7 +17,6 @@ require('dotenv').config();
             API.CameraList()
             .then(res => {
                 let camera = res.data
-                console.log(camera)
                 console.log(typeof(camera))
                 camera.forEach(item => {
                     let LatLng = {
@@ -27,7 +26,8 @@ require('dotenv').config();
               
                     const marker = new window.google.maps.Marker({
                         position: LatLng,
-                        title: item.title
+                        title: item.title,
+                        icon: "http://maps.google.com/mapfiles/kml/pal4/icon46.png"
                     });
 
                     const content = '<div class="markerContent"' + 
@@ -61,6 +61,7 @@ require('dotenv').config();
             API.WeatherList()
             .then(res => {
                 let weatherDot = res.data
+                console.log(weatherDot)
                 weatherDot.forEach(item => {
                     let temp = item.Temp.toString()
                     let LatLng = {
@@ -70,7 +71,8 @@ require('dotenv').config();
   
                     const marker = new window.google.maps.Marker({
                         position: LatLng,
-                        title: temp
+                        title: temp,
+                        icon: "http://maps.google.com/mapfiles/kml/pal4/icon30.png"
                     });
                     let content;
                     if (item.WindSpeed){
@@ -121,13 +123,26 @@ require('dotenv').config();
             .then(res => {
                 let alertDot = res.data
                 alertDot.forEach(item => {
+                    let markerIcon =''
+                    if (item.Priority=="High"){
+                        markerIcon = "http://maps.google.com/mapfiles/kml/pal3/icon33.png"
+                    }
+                    else if (item.Priority=="Medium"){
+                        markerIcon="http://maps.google.com/mapfiles/kml/pal3/icon45.png"
+                    }
+                    else {
+                        markerIcon = "http://maps.google.com/mapfiles/kml/pal4/icon60.png"
+                    }
+
+
                     let LatLng = {
                         lat: item.Start.Lat,
                         lng: item.Start.Long
                     };
                     const marker = new window.google.maps.Marker({
                         position: LatLng,
-                        title: item.Priority
+                        title: item.Priority,
+                        icon: markerIcon
                     });
 
                     const content = '<div class="markerContent"' + 
