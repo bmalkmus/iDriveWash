@@ -12,7 +12,6 @@ const loadGoogleMapScript = (callback) => {
     callback();
   } else {
     const googleMapScript = document.createElement("script");
-    // googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${google}`;
     googleMapScript.src = "/api/google";
     window.document.body.appendChild(googleMapScript);
     googleMapScript.addEventListener("load", callback);
