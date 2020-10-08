@@ -216,7 +216,7 @@ require('dotenv').config();
             cameraMarkers();
             weatherMarker();
             alertMarker();
-        }, [camState, weatherState, alertState]);
+        }, [coord,camState, weatherState, alertState]);
 
        
 
