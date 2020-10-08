@@ -2369,29 +2369,6 @@
     "Title": "Wilson Creek Airport West"
     },
     {
-    "CameraID": 1237,
-    "CameraLocation": {
-    "Description": null,
-    "Direction": "S",
-    "Latitude": 47.907177,
-    "Longitude": -122.10015,
-    "MilePost": 35,
-    "RoadName": "Airports"
-    },
-    "CameraOwner": "Harvey Enterprises and Air Design Ltd",
-    "Description": null,
-    "DisplayLatitude": 47.907177,
-    "DisplayLongitude": -122.10015,
-    "ImageHeight": 192,
-    "ImageURL": "http://www.harveyfield.com/WebcamImageHandler.ashx",
-    "ImageWidth": 341,
-    "IsActive": true,
-    "OwnerURL": "http://www.harveyfield.com/",
-    "Region": "NW",
-    "SortOrder": 5300,
-    "Title": "Harvey Airfield(Snohomish)"
-    },
-    {
     "CameraID": 9906,
     "CameraLocation": {
     "Description": null,
@@ -2530,29 +2507,6 @@
     "Title": "Mount St. Helens"
     },
     {
-    "CameraID": 4038,
-    "CameraLocation": {
-    "Description": null,
-    "Direction": "N",
-    "Latitude": 46.558534,
-    "Longitude": -122.275289,
-    "MilePost": 3,
-    "RoadName": "City & County Cams"
-    },
-    "CameraOwner": "Lewis county",
-    "Description": null,
-    "DisplayLatitude": 46.558534,
-    "DisplayLongitude": -122.275289,
-    "ImageHeight": 240,
-    "ImageURL": "http://home.lewiscounty.com/~mortonwebcam/fullsize.jpg",
-    "ImageWidth": 320,
-    "IsActive": true,
-    "OwnerURL": "http://www.lewiscounty.com/",
-    "Region": "SW",
-    "SortOrder": 5200,
-    "Title": "Morton"
-    },
-    {
     "CameraID": 1350,
     "CameraLocation": {
     "Description": null,
@@ -2643,29 +2597,6 @@
     "Region": "OL",
     "SortOrder": 5200,
     "Title": "Sleater-Kinney @ Martin Way (Olympia)"
-    },
-    {
-    "CameraID": 1240,
-    "CameraLocation": {
-    "Description": null,
-    "Direction": "N",
-    "Latitude": 47.9087,
-    "Longitude": -124.6366,
-    "MilePost": 205,
-    "RoadName": "City & County Cams"
-    },
-    "CameraOwner": "Forks Chamber of Commerce",
-    "Description": null,
-    "DisplayLatitude": 47.9087,
-    "DisplayLongitude": -124.6366,
-    "ImageHeight": 240,
-    "ImageURL": "http://webcam.forkswa.com/webcam1/netcam.jpg",
-    "ImageWidth": 320,
-    "IsActive": true,
-    "OwnerURL": "http://www.forkswa.com/",
-    "Region": "OL",
-    "SortOrder": 5200,
-    "Title": "LaPush"
     },
     {
     "CameraID": 1246,
@@ -25045,29 +24976,6 @@
     "Region": "SW",
     "SortOrder": 3504,
     "Title": "SR 504 at MP 33: Forest Learning Rest Area Center"
-    },
-    {
-    "CameraID": 9925,
-    "CameraLocation": {
-    "Description": null,
-    "Direction": "B",
-    "Latitude": 46.938015,
-    "Longitude": -122.554036,
-    "MilePost": 31,
-    "RoadName": "SR 507"
-    },
-    "CameraOwner": null,
-    "Description": null,
-    "DisplayLatitude": 46.938015,
-    "DisplayLongitude": -122.554036,
-    "ImageHeight": 209,
-    "ImageURL": "http://images.wsdot.wa.gov/orflow/507vc03110.jpg",
-    "ImageWidth": 335,
-    "IsActive": true,
-    "OwnerURL": null,
-    "Region": "OL",
-    "SortOrder": 3504,
-    "Title": "SR 507: SR 702 Intersection"
     },
     {
     "CameraID": 9346,
