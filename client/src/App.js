@@ -23,6 +23,7 @@ const loadGoogleMapScript = (callback) => {
 
 
   const [loadMap, setLoadMap] = useState(false);
+  const [coord, setCoord] = useState({ lat: 47.411293, lng: -120.55627 })
   const [camState, setCamState] = useState(false);
   const [alertState, setAlertState] =useState(false);
   const [weatherState, setWeatherState] =useState(false);
@@ -36,11 +37,52 @@ const loadGoogleMapScript = (callback) => {
 
   useEffect(() => {
     apiCalls();
+    initCoord()
     const interval = setInterval(() => {
       updateInfo()
     }, 30*60*1000);
     return () => clearInterval(interval);
   }, []);
+
+  function initCoord(){
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+    }
+    else{
+      alert("Geolocation is not allowed")}
+
+    function successFunction(position) {
+      let currentLat = position.coords.latitude;
+      let currentLon = position.coords.longitude;
+
+          // north:49.0027,
+            // south:45.5439,
+            // east:-116.9165,
+            // west:-124.8679
+
+      if (currentLat >= 45.5439 && currentLat <= 49.0027 && currentLon >= -124.8679 && currentLon <= -116.9165){
+        setCoord({lat:currentLat, lng: currentLon})
+      }
+    }
+
+    function errorFunction(error){
+      switch(error.code) {
+          case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.")
+            break;
+          case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.")
+            break;
+          case error.TIMEOUT:
+            alert("The request to get user location timed out.")
+            break;
+          case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.")
+            break;
+        }
+    }
+  }
 
   function updateInfo(){
     API.clearWeather();
@@ -158,7 +200,8 @@ const loadGoogleMapScript = (callback) => {
         {!loadMap ? <div>Loading...</div> : <Map 
                                               camState = {camState} 
                                               alertState = {alertState} 
-                                              weatherState = {weatherState} 
+                                              weatherState = {weatherState}
+                                              coord = {coord}
                                          
                                               />}
         <Footer 

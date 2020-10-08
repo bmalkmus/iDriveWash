@@ -5,13 +5,31 @@ import "./style.css"
 require('dotenv').config();
 
  
-    function Map({camState, alertState, weatherState}){
+    function Map({camState, alertState, weatherState, coord}){
+        console.log(coord)
         const googleMapRef = useRef(null);
         let googleMap;
 
         let camMarks = []
         let alertMarks = []
         let weatherMarks = []
+        const polygonalWash = require('../../bounds.json');
+        const washBounds = {
+            // north:49.0027,
+            // south:45.5439,
+            // east:-116.9165,
+            // west:-124.8679
+            north:50.0000,
+            south: 44.5439,
+            east:-115.0000,
+            west:-126.0000
+        }
+        const outterLine = [
+            {lat:60.0000, lng: -100.0000},
+            {lat:60.0000, lng:-140.0000},
+            {lat: 39.5439, lng:-140.0000},
+            {lat: 39.5439, lng: -100.0000}
+        ]
 
         function cameraMarkers () {
             API.CameraList()
@@ -172,36 +190,46 @@ require('dotenv').config();
                 })
             })
         }
-
-     
-
-
         
+        function Border() {
+            const borderLine = new window.google.maps.Polygon({
+                paths: [outterLine,polygonalWash],
+                strokeColor: "rgb(0,128,84)",
+                strokeOpacity: 1.0,
+                strokeWeight: 5,
+                fillColor: "#000000",
+                fillOpacity: .50,
+
+              });
+              borderLine.setMap(googleMap);
+        }
         function Traffic() {
             var trafficLayer = new window.google.maps.TrafficLayer()
             trafficLayer.setMap(googleMap)
         }
-        
-        
-        // useEffect(() => {
-        //     cameraMarkers()
-        //     console.log('this Effect is called')
-        // }, [])
+
+
         useEffect(() => {
             googleMap = initGoogleMap();
             Traffic();
+            Border();
             cameraMarkers();
             weatherMarker();
             alertMarker();
         }, [camState, weatherState, alertState]);
 
+       
 
 
 
         function initGoogleMap ()  {
             return new window.google.maps.Map(googleMapRef.current, {
-              center: { lat: 47.411293, lng: -120.55627 },
-              zoom: 8
+              center: coord,
+              restriction: {
+                latLngBounds: washBounds,
+                strictBounds: false,
+              },
+              zoom: 10
             });
           }
 
