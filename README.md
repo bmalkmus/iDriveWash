@@ -1,7 +1,7 @@
 # iDriveWash
 
 ## Description
-&nbsp;&nbsp;&nbsp;&nbspThis app is a re-design of Washington Department of Transportation's website to give a more user friendly approach to need to know information. <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;This app is a re-design of Washington Department of Transportation's website to give a more user friendly approach to need to know information. <br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;This App uses the travel information from wsdot.com and displays them in an interactive manner on the google map on the main page. The user can see the weather, alert, or even a current snapshot of the physical road so that he/she can mank educated decisions on their travel iternary.   <br><br>
 ![Screenshot](screenshots/Register.png)<br>
 Home Page w/Camera Image Active<br>
