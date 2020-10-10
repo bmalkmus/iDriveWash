@@ -6,7 +6,6 @@ require('dotenv').config();
 
  
     function Map({camState, alertState, weatherState, coord}){
-        console.log(coord)
         const googleMapRef = useRef(null);
         let googleMap;
 
@@ -78,7 +77,6 @@ require('dotenv').config();
             API.WeatherList()
             .then(res => {
                 let weatherDot = res.data
-                console.log(weatherDot)
                 weatherDot.forEach(item => {
                     let temp = item.Temp.toString()
                     let LatLng = {

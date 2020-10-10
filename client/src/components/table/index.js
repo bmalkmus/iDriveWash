@@ -4,12 +4,30 @@ import "./style.css"
 
 function Table (props) {
     const [sort, setSort] = useState({sortBy: (a, b) => a.distance - b.distance})
+    const [consolidated, setConsol] = useState(true)
+
+    function consolidation() {
+        var row = document.getElementsByTagName("tr");
+        if (consolidated === true) {
+            setConsol(false)
+            for (let i = 11; i < row.length; i++) {
+                row[i].style.display = "table-row";
+            }
+        }
+        else{
+            setConsol(true)
+            for (let i = 11; i < row.length; i++) {
+                row[i].style.display = "none";
+            }
+        }
+    }
 
         let data = props.alerts
+
         data.forEach(alert => {
             const alertCoord = {lat: alert.StartRoadwayLocation.Latitude , lng: alert.StartRoadwayLocation.Longitude}
             alert.distance = API.Distance(props.coord, alertCoord)
-
+            
             switch (alert.Priority) {
                 case "Highest":
                     alert.rating = 1;
@@ -30,11 +48,15 @@ function Table (props) {
                     alert.rating = 6
             }
         })
+
         return (
            <div>
                <br></br>
                <br></br>
-               <h3>Alerts</h3>
+               <div className = "tableTitle" onClick={() => consolidation()}>
+                    <h3>Alerts</h3>
+                    <span>(Click for table expansion)</span>
+               </div>
                <br></br>
                <table className = "table alertsTab">
                     <thead>

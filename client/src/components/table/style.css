@@ -14,7 +14,7 @@ th {
 
 }
 
-.alertHead {
+.alertHead:hover {
     cursor: pointer;
 }
 
@@ -27,8 +27,18 @@ td {
     color: rgb(250,214,23);
 }
 
-h3 {
+.tableTitle {
     text-align: center;
     color: rgb(250,214,23);
     font-size: 30px;
+    align-items: center;
+    padding: 0%;
+}
+
+.tableTitle:hover{
+    cursor: pointer;
+}
+
+tr:nth-child(n + 11){
+    display:none
 }

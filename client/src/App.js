@@ -79,6 +79,8 @@ const loadGoogleMapScript = (callback) => {
           case error.UNKNOWN_ERROR:
             alert("An unknown error occurred.")
             break;
+          default:
+            alert("An unknown error occurred.")
         }
     }
   }
@@ -143,7 +145,6 @@ const loadGoogleMapScript = (callback) => {
                 WindSpeed:res.data[i].WindSpeedInMPH  
               })
               .then((res) => {
-                  console.log("weather station " +res)
               })
               .catch((err) => {
                                 console.log(err);
@@ -175,7 +176,6 @@ const loadGoogleMapScript = (callback) => {
                 HeadlineDescription:res.data[i].HeadlineDescription
             })
             .then((res) => {
-                console.log("alerts " +res)
             })
             .catch((err) => {
               console.log(err);
@@ -191,7 +191,7 @@ const loadGoogleMapScript = (callback) => {
 
     return (
       <div className="App">
-        <img className = "backImage" src= {process.env.PUBLIC_URL + '/washRoad.jpg'}/>
+        <img className = "backImage" src= {process.env.PUBLIC_URL + '/washRoad.jpg'} alt = "Washington State Cascade Highway"/>
         <div className="frontContent">
           <Navigation/>
       
