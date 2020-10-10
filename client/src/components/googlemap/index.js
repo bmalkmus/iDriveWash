@@ -35,7 +35,6 @@ require('dotenv').config();
             API.CameraList()
             .then(res => {
                 let camera = res.data
-                console.log(typeof(camera))
                 camera.forEach(item => {
                     let LatLng = {
                                     lat: item.Latitude,
@@ -142,10 +141,10 @@ require('dotenv').config();
                 let alertDot = res.data
                 alertDot.forEach(item => {
                     let markerIcon =''
-                    if (item.Priority=="High"){
+                    if (item.Priority==="High"){
                         markerIcon = "http://maps.google.com/mapfiles/kml/pal3/icon33.png"
                     }
-                    else if (item.Priority=="Medium"){
+                    else if (item.Priority==="Medium"){
                         markerIcon="http://maps.google.com/mapfiles/kml/pal3/icon45.png"
                     }
                     else {

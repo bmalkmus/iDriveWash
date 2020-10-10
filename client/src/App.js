@@ -5,6 +5,7 @@ import API from './components/utils/API';
 import Navigation from './components/navbar';
 import Footer from "./components/footer";
 import Cameras from "./cameras.json";
+import Table from "./components/table"
 
 const loadGoogleMapScript = (callback) => {
   if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
@@ -19,8 +20,7 @@ const loadGoogleMapScript = (callback) => {
 
   function App () {
 
-
-
+  const [alerts, setAlerts] = useState([])
   const [loadMap, setLoadMap] = useState(false);
   const [coord, setCoord] = useState({ lat: 47.411293, lng: -120.55627 })
   const [camState, setCamState] = useState(false);
@@ -156,8 +156,8 @@ const loadGoogleMapScript = (callback) => {
   function dAlert(){
     API.downAlerts()
     .then (res => {
+        setAlerts(res.data)
         for (let i=0; i<res.data.length; i++){
-
             API.postAlerts({
                 AlertID:res.data[i].AlertID,
                 Start: {
@@ -191,27 +191,29 @@ const loadGoogleMapScript = (callback) => {
 
     return (
       <div className="App">
-      <img className = "backImage" src= {process.env.PUBLIC_URL + '/washRoad.jpg'}/>
-      <div className="frontContent">
-        <Navigation/>
-    
- 
-        {!loadMap ? <div>Loading...</div> : <Map 
-                                              camState = {camState} 
-                                              alertState = {alertState} 
-                                              weatherState = {weatherState}
-                                              coord = {coord}
-                                         
-                                              />}
-        <Footer 
-          setCamState = {setCamState} 
-          setAlertState = {setAlertState} 
-          setWeatherState = {setWeatherState}
-          camState = {camState} 
-          alertState = {alertState} 
-          weatherState = {weatherState}
-/>
-      </div>
+        <img className = "backImage" src= {process.env.PUBLIC_URL + '/washRoad.jpg'}/>
+        <div className="frontContent">
+          <Navigation/>
+      
+  
+          {!loadMap ? <div>Loading...</div> : <Map 
+                                                camState = {camState} 
+                                                alertState = {alertState} 
+                                                weatherState = {weatherState}
+                                                coord = {coord}
+                                          
+                                                />}
+          <Footer 
+            setCamState = {setCamState} 
+            setAlertState = {setAlertState} 
+            setWeatherState = {setWeatherState}
+            camState = {camState} 
+            alertState = {alertState} 
+            weatherState = {weatherState}
+          />
+          <Table alerts = {alerts} coord = {coord}/>
+          
+        </div>
       </div>
     );
 
