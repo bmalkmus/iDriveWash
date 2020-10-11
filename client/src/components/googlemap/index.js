@@ -43,7 +43,7 @@ require('dotenv').config();
                     const marker = new window.google.maps.Marker({
                         position: LatLng,
                         title: item.title,
-                        icon: "http://maps.google.com/mapfiles/kml/pal4/icon46.png"
+                        icon: process.env.PUBLIC_URL + '/camera.png'
                     });
 
                     const content = '<div class="markerContent"' + 
@@ -87,7 +87,7 @@ require('dotenv').config();
                     const marker = new window.google.maps.Marker({
                         position: LatLng,
                         title: temp,
-                        icon: "http://maps.google.com/mapfiles/kml/pal4/icon30.png"
+                        icon: process.env.PUBLIC_URL + '/weather.png'
                     });
                     let content;
                     if (item.WindSpeed){
@@ -139,14 +139,14 @@ require('dotenv').config();
                 let alertDot = res.data
                 alertDot.forEach(item => {
                     let markerIcon =''
-                    if (item.Priority==="High"){
-                        markerIcon = "http://maps.google.com/mapfiles/kml/pal3/icon33.png"
+                    if (item.Priority==="High" || item.Priority==="Highest"){
+                        markerIcon = process.env.PUBLIC_URL + '/high.png'
                     }
                     else if (item.Priority==="Medium"){
-                        markerIcon="http://maps.google.com/mapfiles/kml/pal3/icon45.png"
+                        markerIcon=process.env.PUBLIC_URL + '/medium.png'
                     }
                     else {
-                        markerIcon = "http://maps.google.com/mapfiles/kml/pal4/icon60.png"
+                        markerIcon = process.env.PUBLIC_URL + '/low.png'
                     }
 
 
