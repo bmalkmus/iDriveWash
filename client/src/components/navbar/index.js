@@ -19,6 +19,9 @@ function Navigation () {
             <Navbar.Text id="alertLink">
                 <a href="#alertTable"> Alerts </a>
             </Navbar.Text>
+            <Navbar.Text id="alertLink">
+                <a href="https://www.wsdot.com/traffic/passes/camera.aspx" target="_blank" rel="noopener noreferrer"> Mountain Passes</a>
+            </Navbar.Text>
         </Navbar.Collapse>
      
     </Navbar>
