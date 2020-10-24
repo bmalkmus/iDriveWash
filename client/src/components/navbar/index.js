@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-// import Nav from 'react-bootstrap/Nav';
 import "./style.css"
 
 
@@ -16,6 +15,11 @@ function Navigation () {
             />
             <p className="logo">iDriveWashington</p>
         </Navbar.Brand>
+        <Navbar.Collapse className="justify-content-end rightLinks">
+            <Navbar.Text id="alertLink">
+                <a href="#alertTable"> Alerts </a>
+            </Navbar.Text>
+        </Navbar.Collapse>
      
     </Navbar>
     )

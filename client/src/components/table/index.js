@@ -50,10 +50,10 @@ function Table (props) {
         })
 
         return (
-           <div>
+           <div id = "tableDiv">
                <br></br>
                <br></br>
-               <div className = "tableTitle" onClick={() => consolidation()}>
+               <div className = "tableTitle" id ="alertTable" onClick={() => consolidation()}>
                     <h3>Alerts</h3>
                     <span>(Click for table expansion)</span>
                </div>

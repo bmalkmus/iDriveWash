@@ -12,6 +12,9 @@
 .Brand{
     font-size: 35px;
     padding-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo{
@@ -19,4 +22,20 @@
     display: inline;
     margin-left: 20px;
 
+}
+
+a, a:visited{
+    color: rgb(0,128,84);
+    text-decoration: none;
+}
+
+#alertLink{
+    padding-right: 35px;
+    font-size: 25px;
+}
+
+.rightLinks{
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
