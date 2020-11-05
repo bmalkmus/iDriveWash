@@ -7,7 +7,7 @@ const key = keys.wash();
 export default {
 
     timeTravel: function() {
-        return axios.get (`http://www.wsdot.wa.gov/Traffic/api/TravelTimes/TravelTimesREST.svc/GetTravelTimesAsJson?AccessCode=${key}`)
+        return axios.get (`https://cors-anywhere.herokuapp.com/http://www.wsdot.wa.gov/Traffic/api/TravelTimes/TravelTimesREST.svc/GetTravelTimesAsJson?AccessCode=${key}`)
     },
     googleInfo: function () {
         return axios.get('api/google')

@@ -15,6 +15,7 @@ function Navigation () {
             />
             <p className="logo">iDriveWashington</p>
         </Navbar.Brand>
+        {/* <Navbar.Toggle aria-controls="responsive-navbar-nav" id = "navToggle"/> */}
         <Navbar.Collapse className="justify-content-end rightLinks">
             <Navbar.Text className="alertLink">
                 <a href="#alertTable"> Alerts </a>
@@ -23,7 +24,7 @@ function Navigation () {
                 <a href="https://www.wsdot.com/traffic/passes/camera.aspx" target="_blank" rel="noopener noreferrer"> Mountain Passes</a>
             </Navbar.Text>
             <Navbar.Text className="alertLink">
-                <a href="https://www.wsdot.com/traffic/traveltimes/default.aspx?region=seattle&direction=all" target="_blank" rel="noopener noreferrer"> Travel Time</a>
+                <a href="#timeTable"> Travel Times</a>
             </Navbar.Text>
         </Navbar.Collapse>
      

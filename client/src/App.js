@@ -5,7 +5,8 @@ import API from './components/utils/API';
 import Navigation from './components/navbar';
 import Footer from "./components/footer";
 import Cameras from "./cameras.json";
-import Table from "./components/table"
+import Table from "./components/table";
+import TravelTable from "./components/travelTable"
 
 const loadGoogleMapScript = (callback) => {
   if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
@@ -26,6 +27,7 @@ const loadGoogleMapScript = (callback) => {
   const [camState, setCamState] = useState(false);
   const [alertState, setAlertState] =useState(false);
   const [weatherState, setWeatherState] =useState(false);
+  const [times, setTimes] = useState([]);
 
   
   useEffect(() => {
@@ -125,9 +127,17 @@ const loadGoogleMapScript = (callback) => {
     })
     dWeath();
     dAlert();
+    tTimes();
 
 
     
+  }
+
+  function tTimes(){
+    API.timeTravel()
+    .then(res => {
+        setTimes(res.data)
+    })
   }
 
   function dWeath(){
@@ -211,7 +221,9 @@ const loadGoogleMapScript = (callback) => {
             alertState = {alertState} 
             weatherState = {weatherState}
           />
+          <TravelTable times={times}/>
           <Table alerts = {alerts} coord = {coord}/>
+
           
         </div>
       </div>

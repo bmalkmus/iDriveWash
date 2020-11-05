@@ -1,4 +1,4 @@
-.alertsTab {
+.iDriveTab {
     border: 3px solid black;
     margin: 0 auto;
     background-color: black;
@@ -44,6 +44,6 @@ td {
     cursor: pointer;
 }
 
-tr:nth-child(n + 11){
+#tableDiv tr:nth-child(n + 11){
     display:none
 }

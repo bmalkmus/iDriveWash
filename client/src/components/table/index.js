@@ -8,6 +8,7 @@ function Table (props) {
 
     function consolidation() {
         var row = document.getElementsByTagName("tr");
+        console.log(row)
         if (consolidated === true) {
             setConsol(false)
             for (let i = 11; i < row.length; i++) {
@@ -58,7 +59,7 @@ function Table (props) {
                     <span>(Click for table expansion)</span>
                </div>
                <br></br>
-               <table className = "table alertsTab">
+               <table className = "table iDriveTab">
                     <thead>
                         <tr>
                             <th className = "alertHead" onClick ={() => setSort({sortBy: (a, b) => a.rating - b.rating})}>Priority</th>
