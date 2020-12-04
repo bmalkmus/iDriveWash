@@ -7,8 +7,10 @@ function Table (props) {
     const [consolidated, setConsol] = useState(true)
 
     function consolidation() {
-        var row = document.getElementsByTagName("tr");
+
+        var row = document.getElementsByClassName("alertsRow");
         console.log(row)
+        console.log(consolidated)
         if (consolidated === true) {
             setConsol(false)
             for (let i = 11; i < row.length; i++) {
@@ -80,7 +82,7 @@ function Table (props) {
                             
                             
                         return (
-                        <tr key = {alert.AlertID} id = {alert.AlertID}>
+                        <tr key = {alert.AlertID} id = {alert.AlertID} className="alertsRow">
                             <td>{alert.Priority}</td>
                             <td>{alert.EventCategory}</td>
                             <td>{alert.StartRoadwayLocation.RoadName}</td>
