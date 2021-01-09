@@ -205,7 +205,7 @@ require('dotenv').config();
             trafficLayer.setMap(googleMap)
         }
 
-
+        // NEED TO FIGURE OUT A WAY TO MAKE THIS NOT RELOAD MAP WHEN MARKERS ARE ON OR OFF
         useEffect(() => {
             googleMap = initGoogleMap();
             Traffic();
