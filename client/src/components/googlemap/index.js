@@ -206,6 +206,7 @@ require('dotenv').config();
         }
 
         // NEED TO FIGURE OUT A WAY TO MAKE THIS NOT RELOAD MAP WHEN MARKERS ARE ON OR OFF
+        // https://stackblitz.com/edit/react-mmmney?file=Map.js demo for solution
         useEffect(() => {
             googleMap = initGoogleMap();
             Traffic();
