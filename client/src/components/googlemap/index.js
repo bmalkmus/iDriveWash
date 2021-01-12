@@ -43,7 +43,8 @@ require('dotenv').config();
                     const marker = new window.google.maps.Marker({
                         position: LatLng,
                         title: item.title,
-                        icon: process.env.PUBLIC_URL + '/camera.png'
+                        icon: process.env.PUBLIC_URL + '/camera.png',
+                        map:googleMap
                     });
 
                     const content = '<div class="markerContent"' + 
@@ -62,13 +63,15 @@ require('dotenv').config();
                       });
 
 
-                    camMarks.push(marker);
-                    if (camState){
-                        marker.setMap(googleMap)
-                    }
-                    else {
-                        marker.setMap(null)
-                    }
+                    // camMarks.push(marker);
+                    // if (camState){
+                    //     console.log("on")
+                    //     marker.setMap(googleMap)
+                    // }
+                    // else {
+                    //     console.log("off")
+                    //     marker.setMap(null)
+                    // }
                 })
             })
         }
@@ -211,10 +214,17 @@ require('dotenv').config();
             googleMap = initGoogleMap();
             Traffic();
             Border();
+            // cameraMarkers();
+            // weatherMarker();
+            // alertMarker();
+        }, [coord]);
+
+        useEffect(()=>{
+            console.log("effectRan")
             cameraMarkers();
             weatherMarker();
             alertMarker();
-        }, [coord,camState, weatherState, alertState]);
+        },[camState,alertState,weatherState])
 
        
 
