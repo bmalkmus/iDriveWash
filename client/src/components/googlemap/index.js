@@ -9,9 +9,13 @@ require('dotenv').config();
         const googleMapRef = useRef(null);
         let googleMap;
 
-        let camMarks = []
-        let alertMarks = []
-        let weatherMarks = []
+        // let camMarks = []
+        // let alertMarks = []
+        // let weatherMarks = []
+        const alertMarks = useRef([]);
+        const camMarks = useRef([]);
+        const weatherMarks=useRef([]);
+
         const polygonalWash = require('../../bounds.json');
         const washBounds = {
             // north:49.0027,
@@ -29,51 +33,59 @@ require('dotenv').config();
             {lat: 39.5439, lng:-140.0000},
             {lat: 39.5439, lng: -100.0000}
         ]
+        
 
         function cameraMarkers () {
-            API.CameraList()
-            .then(res => {
-                let camera = res.data
-                camera.forEach(item => {
-                    let LatLng = {
-                                    lat: item.Latitude,
-                                    lng: item.Longitude
-                                };
-              
-                    const marker = new window.google.maps.Marker({
-                        position: LatLng,
-                        title: item.title,
-                        icon: process.env.PUBLIC_URL + '/camera.png',
-                        map:googleMap
-                    });
+            if(camState){
+                API.CameraList()
+                .then(res => {
+                    let camera = res.data
+                    camera.forEach(item => {
+                        let LatLng = {
+                                        lat: item.Latitude,
+                                        lng: item.Longitude
+                                    };
+                
+                        const marker = new window.google.maps.Marker({
+                            position: LatLng,
+                            title: item.title,
+                            icon: process.env.PUBLIC_URL + '/camera.png',
+                            map:googleMap
+                        });
 
-                    const content = '<div class="markerContent"' + 
-                    '<h1>'+item.title+'</h!>'+
-                    '<br>'+
-                    '<img src="'+item.Image+'" alt='
-                    +item.title + 'camera width="400" height="400">'+
-                    '</div>';
+                        const content = '<div class="markerContent"' + 
+                        '<h1>'+item.title+'</h!>'+
+                        '<br>'+
+                        '<img src="'+item.Image+'" alt='
+                        +item.title + 'camera width="400" height="400">'+
+                        '</div>';
 
-                    const infowindow = new window.google.maps.InfoWindow({
-                        content: content
-                      });
+                        const infowindow = new window.google.maps.InfoWindow({
+                            content: content
+                        });
 
-                    marker.addListener("click", () => {
-                        infowindow.open(googleMap,marker)
-                      });
+                        marker.addListener("click", () => {
+                            infowindow.open(googleMap,marker)
+                        });
 
 
-                    // camMarks.push(marker);
-                    // if (camState){
-                    //     console.log("on")
-                    //     marker.setMap(googleMap)
-                    // }
-                    // else {
-                    //     console.log("off")
-                    //     marker.setMap(null)
-                    // }
+                        camMarks.current.push(marker);
+                        // if (camState){
+                        //     console.log("on")
+                        //     marker.setMap(googleMap)
+                        // }
+                        // else {
+                        //     console.log("off")
+                        //     marker.setMap(null)
+                        // }
+                    })
                 })
-            })
+            }
+            else{
+                for (let m of camMarks.current){
+                    m.setMap(null)
+                }
+            }
         }
 
         function weatherMarker () {
@@ -222,9 +234,9 @@ require('dotenv').config();
         useEffect(()=>{
             console.log("effectRan")
             cameraMarkers();
-            weatherMarker();
-            alertMarker();
-        },[camState,alertState,weatherState])
+            // weatherMarker();
+            // alertMarker();
+        },[camState])
 
        
 
