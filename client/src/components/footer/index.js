@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 
 function Footer ({weatherState, camState, alertState, setCamState, setWeatherState, setAlertState}) {
     function stateCamera () {
+        console.log("click")
         if (camState) {
             setCamState(false)
     

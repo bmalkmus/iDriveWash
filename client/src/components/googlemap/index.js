@@ -37,9 +37,11 @@ require('dotenv').config();
 
         function cameraMarkers () {
             if(camState){
+                console.log("cameras are true")
                 API.CameraList()
                 .then(res => {
                     let camera = res.data
+                    console.log(camera[0])
                     camera.forEach(item => {
                         let LatLng = {
                                         lat: item.Latitude,
@@ -70,6 +72,7 @@ require('dotenv').config();
 
 
                         camMarks.current.push(marker);
+                        marker.setMap(googleMap);
                         // if (camState){
                         //     console.log("on")
                         //     marker.setMap(googleMap)
@@ -82,9 +85,11 @@ require('dotenv').config();
                 })
             }
             else{
+                console.log("cameras are off")
                 for (let m of camMarks.current){
                     m.setMap(null)
                 }
+                camMarks.current=[];
             }
         }
 
