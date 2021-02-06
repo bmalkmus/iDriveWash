@@ -6,6 +6,7 @@ import "./style.css"
 
 
 function Navigation () {
+    console.log("Testing directory switch")
     return (
         <Navbar sticky="top" className= "navigation" collapseOnSelect expand="lg">
         <Navbar.Brand className="Brand">
