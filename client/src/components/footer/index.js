@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 
 function Footer ({weatherState, camState, alertState, setCamState, setWeatherState, setAlertState}) {
     function stateCamera () {
+        console.log("click")
         if (camState) {
             setCamState(false)
     
@@ -15,6 +16,7 @@ function Footer ({weatherState, camState, alertState, setCamState, setWeatherSta
         }
     }
     function stateAlert () {
+        console.log("click")
         if (alertState) {
             setAlertState(false)
        
@@ -26,6 +28,7 @@ function Footer ({weatherState, camState, alertState, setCamState, setWeatherSta
     }
     function stateWeather () {
         if (weatherState) {
+            console.log("click")
             setWeatherState(false)
            
         }

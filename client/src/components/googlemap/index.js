@@ -9,9 +9,13 @@ require('dotenv').config();
         const googleMapRef = useRef(null);
         let googleMap;
 
-        let camMarks = []
-        let alertMarks = []
-        let weatherMarks = []
+        // let camMarks = []
+        // let alertMarks = []
+        // let weatherMarks = []
+        const alertMarks = useRef([]);
+        const camMarks = useRef([]);
+        const weatherMarks=useRef([]);
+
         const polygonalWash = require('../../bounds.json');
         const washBounds = {
             // north:49.0027,
@@ -29,48 +33,64 @@ require('dotenv').config();
             {lat: 39.5439, lng:-140.0000},
             {lat: 39.5439, lng: -100.0000}
         ]
+        
 
         function cameraMarkers () {
-            API.CameraList()
-            .then(res => {
-                let camera = res.data
-                camera.forEach(item => {
-                    let LatLng = {
-                                    lat: item.Latitude,
-                                    lng: item.Longitude
-                                };
-              
-                    const marker = new window.google.maps.Marker({
-                        position: LatLng,
-                        title: item.title,
-                        icon: process.env.PUBLIC_URL + '/camera.png'
-                    });
+            if(camState){
+                console.log("cameras are true")
+                API.CameraList()
+                .then(res => {
+                    let camera = res.data
+                    console.log(camera[0])
+                    camera.forEach(item => {
+                        let LatLng = {
+                                        lat: item.Latitude,
+                                        lng: item.Longitude
+                                    };
+                
+                        const marker = new window.google.maps.Marker({
+                            position: LatLng,
+                            title: item.title,
+                            icon: process.env.PUBLIC_URL + '/camera.png',
+                            map:googleMap
+                        });
 
-                    const content = '<div class="markerContent"' + 
-                    '<h1>'+item.title+'</h!>'+
-                    '<br>'+
-                    '<img src="'+item.Image+'" alt='
-                    +item.title + 'camera width="400" height="400">'+
-                    '</div>';
+                        const content = '<div class="markerContent"' + 
+                        '<h1>'+item.title+'</h!>'+
+                        '<br>'+
+                        '<img src="'+item.Image+'" alt='
+                        +item.title + 'camera width="400" height="400">'+
+                        '</div>';
 
-                    const infowindow = new window.google.maps.InfoWindow({
-                        content: content
-                      });
+                        const infowindow = new window.google.maps.InfoWindow({
+                            content: content
+                        });
 
-                    marker.addListener("click", () => {
-                        infowindow.open(googleMap,marker)
-                      });
+                        marker.addListener("click", () => {
+                            infowindow.open(googleMap,marker)
+                        });
 
 
-                    camMarks.push(marker);
-                    if (camState){
-                        marker.setMap(googleMap)
-                    }
-                    else {
-                        marker.setMap(null)
-                    }
+                        camMarks.current.push(marker);
+                        marker.setMap(googleMap);
+                        // if (camState){
+                        //     console.log("on")
+                        //     marker.setMap(googleMap)
+                        // }
+                        // else {
+                        //     console.log("off")
+                        //     marker.setMap(null)
+                        // }
+                    })
                 })
-            })
+            }
+            else{
+                console.log("cameras are off")
+                for (let m of camMarks.current){
+                    m.setMap(null)
+                }
+                camMarks.current=[];
+            }
         }
 
         function weatherMarker () {
@@ -205,15 +225,23 @@ require('dotenv').config();
             trafficLayer.setMap(googleMap)
         }
 
-
+        // NEED TO FIGURE OUT A WAY TO MAKE THIS NOT RELOAD MAP WHEN MARKERS ARE ON OR OFF
+        // https://stackblitz.com/edit/react-mmmney?file=Map.js demo for solution
         useEffect(() => {
             googleMap = initGoogleMap();
             Traffic();
             Border();
+            // cameraMarkers();
+            // weatherMarker();
+            // alertMarker();
+        }, [coord]);
+
+        useEffect(()=>{
+            console.log("effectRan")
             cameraMarkers();
-            weatherMarker();
-            alertMarker();
-        }, [coord,camState, weatherState, alertState]);
+            // weatherMarker();
+            // alertMarker();
+        },[camState])
 
        
 
